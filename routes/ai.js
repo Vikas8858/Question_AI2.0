@@ -4,18 +4,19 @@ import { rewriteQuestion } from "../services/rewriter.js";
 const router = express.Router();
 
 router.post("/question-check", async (req, res) => {
-    const { text } = req.body;
-    if (!text) return res.status(400).json({ error: "Text is required" });
-
     try {
-        const rewritten = await rewriteQuestion(text);
+        const { text } = req.body;
+        console.log('TEXT:', text);
 
-        res.json({
-            original: text,
-            rewrittenQuestion: rewritten
-        });
+        if (!text || text.trim() === "") {
+            return res.status(400).json({ error: "Text is required" });
+        }
+
+        const result = await rewriteQuestion(text); // ✅ Already object
+        res.json(result); // ✅ JSON.parse ki zarurat nahi
+
     } catch (error) {
-        console.error(error);
+        console.error("Server error:", error);
         res.status(500).json({ error: "Server error" });
     }
 });
