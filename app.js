@@ -26,7 +26,7 @@ const app = express();
 
 // ✅ CORS config: sirf frontend domain allow hoga
 app.use(cors({
-  origin: "https://question-ai-2-frontend.vercel.app/", // apna frontend url
+  origin: "https://question-ai-2-frontend.vercel.app", // apna frontend url
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"]
 }));
